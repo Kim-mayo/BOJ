@@ -54,6 +54,6 @@ int main() {
 			
 		}
 	}
-	cout << day;
+	cout << day-1;
 
 }
