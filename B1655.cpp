@@ -49,6 +49,6 @@ int main() {//nlogn
 			cout << bq.top() << "\n";
 		}
 
-		cout << "\n\n";
+		
 	}
 }
