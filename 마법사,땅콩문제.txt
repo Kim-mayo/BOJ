@@ -1,0 +1,133 @@
+마법사 스킬 문제----------------------------------------------------------
+6 3 7 
+2 4 5 8 11 12
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+using namespace std;
+
+#define INF 1e9
+vector<vector<int>>skill;
+bool visited[53];
+bool in[53];
+bool use[53];
+char reverseFunc(int num) {
+
+	if (0 <= num && num <= 25)return num + 'a';
+	else return num -26+ 'A';
+
+}
+void Dfs(int sk,string ssk) {
+
+	visited[sk] = true;
+	bool ok = false;
+	for (int i = 0; i < skill[sk].size(); i++) {
+		if (visited[skill[sk][i]] == true)continue;
+		Dfs(skill[sk][i], ssk+reverseFunc(skill[sk][i]));
+		ok = true;
+	}
+	if (ok == false)cout << ssk<<"\n";
+	
+	return;
+
+}
+int func(char alp) {
+
+	if ('a' <= alp && alp <= 'z')return alp - 'a';
+	else return alp - 'A' + 26;
+
+}
+void input() {
+
+	string s;
+	getline(cin, s);
+	
+	for (int i = 0; i < s.size(); i++) {
+		if ('a' <= s[i] && s[i] <= 'z') {
+			use[func(s[i])] = true;
+		}
+		else if ('A' <= s[i] && s[i] <= 'Z') {
+			use[func(s[i])] = true;
+		}
+	}
+
+	int n; cin >> n;
+	skill.resize(53);
+	for (int i = 0; i < n; i++) {
+
+		char a, b; cin >> a >> b;
+		int u = func(a);
+		int v = func(b);
+		skill[u].push_back(v);
+	
+		in[v] = true;
+	}
+
+}
+int main() {
+
+	ios_base::sync_with_stdio(false);
+	input();
+	for (int i = 0; i < 53; i++) {
+		if (use[i] == true && in[i] == false) {
+			string st = "";
+			Dfs(i,st+reverseFunc(i));
+		}
+	}
+}
+
+땅콩먹기 문제 -------------------------------------------------------------------------------------
+
+#include <iostream>
+#include <algorithm>
+#include <queue>
+#include <vector>
+#include <string>
+using namespace std;
+
+#define INF 1e9
+vector<int>pinut;
+int n, m, e;
+int Solution() {
+	deque<int>select;
+	int i = 0;
+	int MIN = INF;
+	while (1) {
+		select.push_back(pinut[i]);
+		if (select.size() == m) {
+
+			if (select.front()<e&&select.back() <= e) {
+				MIN = min(MIN, e - select.front());
+			}
+			else if (select.front() <= e && e <= select.back()) {
+				MIN = min(MIN, select.back() - select.front());
+			}
+			else if (e <= select.front()&&select.back()>e) {
+				MIN = min(MIN, select.back() - e);
+			}
+
+			select.pop_front();
+		}
+		i++;
+		if (i == n)break;
+	} 
+	return MIN;
+}
+
+void input() {
+
+	cin >> n >> m >> e;
+	pinut.resize(n);
+	for (int i = 0; i < n; i++) {
+		int a; cin >> a;
+		pinut[i] = a;
+	}
+
+}
+int main() {
+
+	ios_base::sync_with_stdio(false);
+	input();
+	cout << Solution();
+}
