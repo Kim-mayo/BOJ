@@ -61,7 +61,7 @@ void input() {
 		}
 		int cnt = 0;
 		for (int i = 1; i <= n; i++) {
-			if (visited[i] == true)continue;
+			if (visited[i] !=-1)continue;
 			if (Bfs(i)) cnt++;			
 		}
 		cout << "Case " << k << ": ";
