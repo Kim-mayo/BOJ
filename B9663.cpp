@@ -1,41 +1,42 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include <cmath>
 using namespace std;
 
 int n;
-int result;
-vector<pair<int, int>>pos;
-
-bool Queen_check(int x,int y) {
-
-	for (int i = 0; i < pos.size(); i++) {
-		if (pos[i].second == y) return false;
-		if (abs(pos[i].first - x) == abs(pos[i].second - y)) return false;
-	}
-	return true;
+int ans;
+vector < pair < int,int > >saranghae;
+bool queenCheck(int x, int y){
+    for(int i=0;i<saranghae.size();i++){
+        int qx = saranghae[i].first;
+        int qy = saranghae[i].second;
+        if(qy==y)return false;
+        if(abs(qx-x)==abs(qy-y))return false;
+    }
+    return true;
 }
-void N_Queen(int row) {
-
-	if (row == n) {
-		result += 1;
-		return;
-	}
-
-	for (int col = 0; col < n; col++) {
-		if (Queen_check(row,col)) {
-			pos.push_back({ row,col });
-			
-			N_Queen(row+1);
-			pos.pop_back();
-		}
-	}
-
+void nQueen(int row){
+    if(row==n){
+        ans++;
+        return;
+    }
+    for(int i=0;i<n;i++){
+        if(queenCheck(row,i)){
+            saranghae.push_back(make_pair(row,i));
+            nQueen(row+1);
+            saranghae.pop_back();
+        }
+    }
+    return;
 }
-int main() {
+int main(){
 
-	cin >> n;
-	N_Queen(0);
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
 
-	cout << result;
+    cin >> n;
+    nQueen(0);
+    cout << ans;
+
 }
