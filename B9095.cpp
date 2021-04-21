@@ -1,37 +1,30 @@
 #include <iostream>
-#include <algorithm>
-#include <queue>
-#include <stack>
 #include <vector>
-#include <string>
-#include <cstring>
+#include <algorithm>
 using namespace std;
 
-#define INF 1e9
-int dp[12];
-int solve(int num) {
-	if (num == 1)return dp[1]=1;
-	if (num == 2)return dp[2]=2;
-	if (num == 3) return dp[3]=4;
-
-	if (dp[num] != -1)return dp[num];
-	return dp[num] = solve(num-1)+solve(num-2)+solve(num-3);
-
+int arr[11];
+void pre(){
+    arr[1] = 1;
+    arr[2] = 2;
+    arr[3] = 4;
+    for(int i=4;i<11;i++){
+        arr[i] = arr[i-1] + arr[i-2] + arr[i-3];
+    }
 }
-void input() {
-	memset(dp, -1, sizeof(dp));
-	int t; cin >> t;
-	for (int i = 0; i < t; i++) {
-		int	n; cin >> n;
-		solve(n);
-		cout << dp[n]<<"\n";
-	}
+int main(){
 
-}
-int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
 
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	input();
+    pre();
+
+    int t; cin >> t;
+    while(t!=0){
+        
+        int a; cin >> a;
+        cout << arr[a] << "\n";
+        --t;
+    }
 
 }
