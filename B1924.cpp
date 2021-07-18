@@ -9,7 +9,7 @@ int cal(int m, int d) {
 	}
 	return yoil % 7;
 }
-void Yoil(int n) {
+void Yoil_(int n) {
 	if (n == 1) cout << "MON";
 	else if (n == 2)cout << "TUE";
 	else if (n == 3)cout << "WED";
@@ -22,6 +22,6 @@ int main() {
 
 	int mon, day; cin >> mon >> day;
 	int a = cal(mon, day);
-	Yoil(a);
+	Yoil_(a);
 
 }
